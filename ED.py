@@ -80,6 +80,6 @@ def decode(arg):
 
 
 result = encode(input_str)
-print("Encode: " + result[len(input_str * 3) + 3:] + '\n' + "Seed: " + result[:len(input_str) * 3 + 3])
-print("Encode_Full: " + result)
+//print("Encode_input: " + result[len(input_str * 3) + 3:] + '\n' + "Encode_seed: " + result[:len(input_str) * 3 + 3])
+print("Encode: " + result)
 print("Decode: " + decode(result) + '\n')
