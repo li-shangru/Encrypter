@@ -6,7 +6,7 @@ seed_number = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 seed_symbol = ['`', '~', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '+', '=', '[', '{', ']', '}', '|', ';',
                ':', '>', ',', '<', '.', '/', '?']
 
-def encode(arg):
+def encrypt(arg):
 	# assign input string to `text` 
     text = arg
     # `check' is for remembering if the input string is code or seed
@@ -48,22 +48,22 @@ def encode(arg):
         seed = seed + seed_combine
     # check = 1 means we have encoded the seed
     if check == 1:
-    	# then we return the en
+    	# then we return the full code
         return seed + code + '!'
     # we encode the seed and put an indicator '!' in front of it
-    return encode('!' + seed) + code
+    return encrypt('!' + seed) + code
 
 
-def decode(arg):
+def decrypt(arg):
 	# assign input string to 'cypher'
     cypher = arg
     # try to locate the seed/code separation indicator
     if arg.find('!') != -1:
     	# split seed and code by separator '!'
         seed_code, code_code = arg.split('!')
-        # decode the seed first
-        seed_code = decode(seed_code)
-        # combine decoded seed and code
+        # decrypt the seed first
+        seed_code = decrypt(seed_code)
+        # combine decrypt seed and code
         # at this point cyhper should not contain '!'
         # hence, cypher.has('!') ? seed not decoded
         cypher = seed_code + code_code
@@ -111,17 +111,17 @@ def decode(arg):
             # current index points to `seed2`, do the same
             elif c == seed2 and check == 1:
                 check = 2
-            # current index points to `seed3`, we can start decoding
+            # current index points to `seed3`, we can start decrypting
             elif c == seed3 and check == 2:
             	# each original character is the ASCII code - offset
                 chars.append((chr(int(''.join(trans)) - offset)))
-                # clear the array after the have decoded
+                # clear the array after the have decrypted
                 trans.clear()
                 # proceed to next character
                 check = 0
                 seed_index = seed_index + seed_num
             else:
-            	# index points to the encoded char, store it for decode
+            	# index points to the encrypted char, store it for decrypt
                 trans.append(c)
     # return the result output
     return ''.join(chars)
@@ -129,7 +129,7 @@ def decode(arg):
 ##############---Message_Display_Input_Handel---#####################
 
 input_str = input("Enter: ")
-result = encode(input_str)
-print("Encode: " + result)
-print("Decode: " + decode(result) + '\n')
-#print("Encode_input: " + result[len(input_str * 3) + 3:] + '\n' + "Encode_seed: " + result[:len(input_str) * 3 + 3])
+result = encrypt(input_str)
+print("Encrypt: " + result)
+print("Decrypt: " + decrypt(result) + '\n')
+#print("Encrypt_input: " + result[len(input_str * 3) + 3:] + '\n' + "Encrypt_seed: " + result[:len(input_str) * 3 + 3])
