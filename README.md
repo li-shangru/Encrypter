@@ -27,23 +27,23 @@ Given input cypher:
 
 ## Simple Illustration
 
-Given user input string `a`, the script return the cypher as
+Given user input string `a`, the script returned the cypher as:
 ```
 59F5}n8^J5$b9(l1%[116F5}108n8^156J5$116b9(154l1%[188a9_
 ```
 Now, let's take a closer look:
 ```
 59F5}n8^J5$b9(l1%[116F5}108n8^156J5$116b9(154l1% [188a9_
-└─────────────────────────────────────────────┘  └─────┘
+└───────────────────┼──────────────────────────┘ └──┼──┘
              encrypted seed                  encrypted input
 ```
-Let split the encrypted seed:
+Let split the `encrypted seed`:
 ```
 59 F5}n8^J5$b9(l1% [ 116F5}108n8^156J5$116b9(154l1%
-│  └─────────────┘ │ └───────────────────────────┘
+│  └────────┼────┘ │ └────────────┼───────────────┘
 offset    seed   separator      code
 ```
-Notice the code and the seed:
+Notice the `code` and the `seed`:
 ```
     F5}     n8^     J5$     b9(     l1%         seed
      │       │       │       │       │
@@ -61,7 +61,7 @@ subtract `59` from all these numbers:
 We have successfully decrypted the `seed`, now its time for the `input`:
 ```
 59F5}n8^J5$b9(l1%[116F5}108n8^156J5$116b9(154l1% [188a9_
-└─────────────────────────────────────────────┘  └─────┘
+└──────────────────┼──────────────────────────┘  └──┼──┘
              encrypted seed                  encrypted input
              └─────┬─────┘
                   91a9_
@@ -80,7 +80,7 @@ Further down:
 │ seed separator  encrypted input
 offset      
 ```
-As we can see, the encrypted input is `188a9_` and the see is `a9_`.
+As we can see, the `encrypted input` is `188a9_` and the `seed` is `a9_`.
 
 Hence removing `a9_` from `188a0_` we get `188`.
 
