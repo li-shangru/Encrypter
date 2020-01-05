@@ -25,7 +25,7 @@ Given input cypher:
     * Convert the characters to be decrypted to ASCII code and minus the `offset`.
 * Return the input string.
 
-## Sample Illustration
+## Simple Illustration
 
 Given user input string `a`, the script return the cypher as
 ```
@@ -88,7 +88,7 @@ Then minus the offset `91`: `188-91 = 97`
 
 Voila! `97` is the ASCII code for character `a`. We have successfully decrypted the input.
 
-### Examples:
+## Examples
 ```
 Enter: 1
 Encrypt: 48W9}Z5^b5$K7,M9?=97W9}105Z5^115b5$101K7,91M9?=68C5+
@@ -117,8 +117,6 @@ Decrypt: こんにちは
 Enter: γεια σας
 Encrypt: 76z6_d8$E5|i9@H7:L4]j8`K7<G8$p9$V0{I7_k8}D7+K4/R5@z6>j1}e9#Q2;f3$h3$r5{I2.f0}B5?[130z6_125d8$165E5|133i9@112H7:185L4]133j8`111K7<188G8$126p9$200V0{185I7_128k8}172D7+150K4/127R5@112z6>157j1}132e9#122Q2;161f3$129h3$140r5{175I2.127f0}111B5?[1008Y9$1010m9#1014p2|1006m4`93J3$1024Q8.1006U5@1023c3#
 Decrypt: γεια σας
-
-Warning! Long...
 
 Enter:     I am happy to join with you today in what will go down in history as the greatest demonstration for freedom in the history of our nation.    Five score years ago, a great American, in whose symbolic shadow we stand today, signed the Emancipation Proclamation. This momentous decree came as a great beacon light of hope to millions of Negro slaves who had been seared in the flames of withering injustice. It came as a joyous daybreak to end the long night of their captivity.    But one hundred years later, the Negro still is not free. One hundred years later, the life of the Negro is still sadly crippled by the manacles of segregation and the chains of discrimination. One hundred years later, the Negro lives on a lonely island of poverty in the midst of a vast ocean of material prosperity. One hundred years later, the Negro is still languishing in the corners of American society and finds himself an exile in his own land. So we have come here today to dramatize a 
 shameful condition.    In a sense we have come to our nation’s capital to cash a check. When the architects of our republic wrote the magnificent words of the Constitution and the Declaration of Independence, they were signing a promissory note to which every American was to fall heir. This note was a promise that all men, yes, black men as well as white men, would be guaranteed the unalienable rights of life, liberty, and the pursuit of happiness.    It is obvious today that America has defaulted on this promissory note insofar as her citizens of color are concerned. Instead of honoring this sacred obligation, America has given the Negro people a bad check, a check which has come back marked “insufficient funds.” But we refuse to believe that the bank of justice is bankrupt. We refuse to believe that there are insufficient funds in the great vaults of opportunity of this nation. So we have come to cash this check — a check that will give us upon demand the riches of freedom and the security of justice. We have also come to this hallowed spot to remind America of the fierce urgency of now. This is no time to engage in the luxury of cooling off or to take the tranquilizing drug of gradualism. Now is the time to make real the promises of democracy. Now is the time to rise from the dark and desolate valley of segregation to the sunlit path of racial justice. Now is the time to lift our nation from the quick sands of racial injustice to the solid rock of brotherhood. Now is the time to make justice a reality for all of God’s children.    It would be fatal for the nation to overlook the urgency of the moment. This sweltering summer of the Negro’s legitimate discontent will not pass until there is an invigorating autumn of freedom and equality. Nineteen sixty-three is not an end, but a beginning. Those who hope that the Negro needed to blow off steam and will now be content will have a rude awakening if the nation returns to business as usual. There will be neither rest nor tranquility in America until the Negro is granted his citizenship rights. The whirlwinds of revolt will continue to shake the foundations of our nation until the bright day of justice emerges.    But there is something that I must say to my people who stand on the warm threshold which leads into the palace of justice. In the process of gaining our rightful place we must not be guilty of wrongful deeds. Let us not seek to satisfy our thirst for freedom by drinking from the cup of bitterness and hatred.    We must forever conduct our struggle on the high plane of dignity and discipline. We must not allow our creative protest to degenerate into physical violence. Again and again we must rise to the majestic heights of meeting physical force with soul force. The marvelous new militancy which has engulfed the Negro community must not lead us to a distrust of all white people, for many of our white brothers, as evidenced by their presence here 
