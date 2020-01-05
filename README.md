@@ -37,7 +37,7 @@ Now, let's take a closer look:
 └───────────────────┬──────────────────────────┘ └──┬──┘
              encrypted seed                  encrypted input
 ```
-Let split the `encrypted seed`:
+Let's split the `encrypted seed`:
 ```
 59 F5}n8^J5$b9(l1% [ 116F5}108n8^156J5$116b9(154l1%
 │  └────────┬────┘ │ └────────────┬───────────────┘
