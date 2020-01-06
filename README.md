@@ -51,29 +51,33 @@ Notice the `code` and the `seed`:
 └────────┴───────┼───────┴───────┘
         116 108 156 116 154
 ```
-Remember the `offset` for the encrypted seed is `59`, hence we
+Remember the `offset` for the `encrypted seed` is `59`, hence we
 subtract `59` from all these numbers:
 ```
-57 49 97 57 95
-│  │  │  │  │
-9  1  a  9  _     ASCII
+116 108 156 116 154
+ │   │   │   │   │     Subtract by 59
+ 57  49  97  57  95
+ │   │   │   │   │
+ 9   1   a   9   _     ASCII
 ```
 We have successfully decrypted the `seed`, now its time for the `input`:
 ```
 59F5}n8^J5$b9(l1%[116F5}108n8^156J5$116b9(154l1% [188a9_
 └──────────────────┬──────────────────────────┘  └──┬──┘
              encrypted seed                  encrypted input
-             └─────┬─────┘
+                   │
+             decrypted seed 
+                   │
                   91a9_
 ```
-Replacing...
+Replacing `encrypted seed` as `decrypted seed`, combining with `encrypted input`:
 ```
 91a9_ [ 188a9_
 └─┬─┘ │ └────┴───────┐ 
   │ separator   encrypted input
 decrypted seed
 ```
-Further down:
+Breaking down:
 ```
 91 a9_ [ 188a9_
 │  │   │ └────┴───────┐ 
@@ -82,7 +86,7 @@ offset
 ```
 As we can see, the `encrypted input` is `188a9_` and the `seed` is `a9_`.
 
-Hence removing `a9_` from `188a0_` we get `188`.
+Hence removing `a9_` from `188a9_` we get `188`.
 
 Then minus the offset `91`: `188-91 = 97`
 
