@@ -100,14 +100,14 @@ We have successfully decrypted the `seed`, now its time for the `input`:
              └─────┬─────┘                      encrypted input
                7 9 b 8 +
 ```
-Replacing...
+Replacing `encrypted seed` as `decrypted seed`, combining with `encrypted input`:
 ```
 79b8+  * 176b8+ *
 └─┬──┘ │ └────┴─│─────────────────┐ 
   │ separator separator    encrypted input
 decrypted seed
 ```
-Further down:
+Breaking down:
 ```
 79 b8+ * 176b8+ *
  │  │  │ └────┴─│──────────┐ 
