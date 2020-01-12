@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """
@@ -6,12 +6,13 @@ A simple script to encrypt and decrypt strings.
 """
 
 import random
+import argparse
 
 __author__ = "Shangru Li"
 __copyright__ = "Copyright 2020, Shangru Li"
 __credits__ = "Shangru Li"
 __license__ = "MIT"
-__version__ = "2.0"
+__version__ = "2.5"
 __maintainer__ = "Shangru Li"
 __email__ = "max.shangru.li@gmail.com"
 __status__ = "Stable"
@@ -27,13 +28,28 @@ seedSymbol = [
 	'=', '[', '{', ']', '}', '|', ';', ':', '>', ',', '<', '.', '/', '?'
 	]
 ################################################################################
+###############################___Args___#######################################
+parser = argparse.ArgumentParser()
+parser.add_argument('-d', "--decrypt", help="Decrypt an encrypted string", type=str)
+parser.add_argument('-e', "--encrypt", help="Encrypt an input string", type=str)
+################################################################################
 
 def main():
-	seedIndicator = generateSeedIndicator()
-	textToEncrypt = input("Enter: ")
-	encryptedText = encrypt(textToEncrypt, seedIndicator)
-	print("Encrypt: " + encryptedText)
-	print("Decrypt: " + decrypt(encryptedText, seedIndicator) + '\n')
+	args = parser.parse_args()
+	if args.decrypt is not None:
+		print("Decrypting: " + args.decrypt)
+		decryptedInput = decrypt(args.decrypt, False)
+		print("Decrypted: " + decryptedInput + '\n')
+	elif args.encrypt is not None:
+		print("Encrypting: " + args.encrypt)
+		encryptedInput = encrypt(args.encrypt, False)
+		print("Encrypted: " + encryptedInput + '\n')
+	else:
+		textToEncrypt = input("Enter: ")
+		encryptedText = encrypt(textToEncrypt, False)
+		print("Encrypt: " + encryptedText)
+		print("Decrypt: " + decrypt(encryptedText, False) + '\n')
+	input('Press ENTER to exit...')
 
 def generateSeedIndicator():
 	"""
@@ -59,51 +75,56 @@ def countNumOfOccurrences(list, x):
 	"""
 	return list.count(x)
 
-def encrypt(textToEncrypt, seedIndicator):
-	# If the first character of the input is `seedIndicator` then it's the seed
-	if textToEncrypt[0] == seedIndicator:
-		# Remove the `seedIndicator`
-		inputText = textToEncrypt.replace(seedIndicator, '')
+def encrypt(textToEncrypt, isSeed):
+	if isSeed == False:
+		# Pick a random seedIndicator
+		seedIndicator = generateSeedIndicator()
 	else:
-		inputText = textToEncrypt
+		seedIndicator = textToEncrypt[0]
+		# Remove the `seedIndicator`
+		textToEncrypt = textToEncrypt.replace(seedIndicator, '')
 	code = ""
 	# Initialize a random offset to be added to the character's ASCII code
 	offset = random.randint(10, 99)
 	# The first two characters of the `seed` is the `offset`
 	seed = str(offset)
-	for n in inputText:
+	for n in textToEncrypt:
 		# Randomly pick a letter from 'seed_letter', upper or lower case
 		randomLetter = getRandomCaseSeedLetter()
 		# Randomly pick a number from 'seed_number'
 		randomNumber = seedNumber[random.randint(0, len(seedNumber) - 1)]
 		# Randomly pick a symbol from 'seed_symbol'
 		randomSymbol = seedSymbol[random.randint(0, len(seedSymbol) - 1)]
+		# Appending to the seed
 		seed_combine = randomLetter + randomNumber + randomSymbol
 		# Appending to the seed
 		seed = seed + seed_combine
-		# The result is:
+		# The code is:
 		# ASCII code of character plus 'offset' + combination of three seeds
 		code = code + str(ord(n) + offset) + seed_combine
-	if textToEncrypt[0] == seedIndicator:
-		# If the first character is the `seedIndicator`, then we just
-		# encrypted the seed. Hence we return the full encrypted input.
-		return seed + seedIndicator + code + seedIndicator
+	if isSeed == True:
+		# We have encrypted the seed. Return the full encrypted input.
+		return seed + seedIndicator + code
 	else:
-		# Else we encode the seed and put an indicator seedIndicator in front of it
-		return encrypt(seedIndicator + seed, seedIndicator) + code
+		# Else we encode the seed
+		return encrypt(seedIndicator + seed, True) + seedIndicator + code + seedIndicator
 
-def decrypt(textToDecrypt, seedIndicator):
-	# There should be 2 occurrences of `seedIndicator` in the `textToDecrypt`
+def decrypt(textToDecrypt, isSeed):
+	# The last character is the `seedIndicator`
+	seedIndicator = textToDecrypt[len(textToDecrypt) - 1]
+	# Removing the `seedIndicator` from input
+	textToDecrypt = textToDecrypt[:-1]
 	# The `textToDecrpt` should looks like this:
-	# {seed + seedIndicator + encryptedSeed} + {seedIndicator + encryptedInput}
-	if countNumOfOccurrences(textToDecrypt, seedIndicator) == 2:
-		# Split the input by `seedIndicator` to three parts
+	# {seedForEncryptedSeed + seedIndicator + encryptedSeed} +
+	# {seedIndicator + encryptedInput + seedIndicator}
+	if isSeed == False:
+		# Splitting the seed and input
 		seedForEncryptedSeed, encryptedSeed, encryptedInput = textToDecrypt.split(seedIndicator)
 		# Decrpt the seed for user input
-		decryptedSeed = decrypt(seedForEncryptedSeed + seedIndicator + encryptedSeed, seedIndicator)
+		decryptedSeed = decrypt(seedForEncryptedSeed + seedIndicator + encryptedSeed + seedIndicator, True)
 		# Combine the decrypted seed with encrypted input for further encrypt
 		textToDecrypt = decryptedSeed + seedIndicator + encryptedInput
-	# The first two characters of seed is the `offset`
+	# The first three characters of seed is the `offset`
 	offset = int(textToDecrypt[0] + textToDecrypt[1])
 	# Remove the `offset` from `textToDecrpt`
 	textToDecrypt = textToDecrypt[2:len(textToDecrypt)]
