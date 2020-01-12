@@ -12,11 +12,11 @@ The script can be executed in three different modes:
 
 * **Decrypt**: Open a terminal and execute the script with argument: `-d` followed by the string needed to be decrypted. Will decrypt the given encrypted string.
   * `./ED.py -d 'Encrypted_String'`
-  * Noted the single quote characters surrounding the encrypted input.
+  * Noted the single quote characters surrounding the encrypted input, this is necessary because `Encrypted_String` contains special characters.
 
 * **Encrypt**: Open a terminal and execute the script with argument: `-e` followed by the string needed to be encrypted. Will encrypt the given input string.
   * `./ED.py -e 'Input_String'`
-  * Noted the single quote characters surrounding the encrypted input.
+  * Noted the single quote characters surrounding the input string.
 
 For more examples, please visit [here](#examples).
 
