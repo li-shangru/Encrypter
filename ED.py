@@ -12,7 +12,7 @@ __author__ = "Shangru Li"
 __copyright__ = "Copyright 2020, Shangru Li"
 __credits__ = "Shangru Li"
 __license__ = "MIT"
-__version__ = "2.6"
+__version__ = "2.7"
 __maintainer__ = "Shangru Li"
 __email__ = "max.shangru.li@gmail.com"
 __status__ = "Stable"
@@ -35,18 +35,21 @@ parser.add_argument('-e', "--encrypt", help="Encrypt an input string", type=str)
 ################################################################################
 
 def main():
+	# Program info
+	print("Encrypter " + __version__ + '\n')
 	args = parser.parse_args()
 	if args.decrypt is not None:
-		print("Decrypting: " + args.decrypt)
-		decryptedInput = decrypt(args.decrypt, False)
-		print("Decrypted: " + decryptedInput + '\n')
+		try:
+			print("Decrypting: " + args.decrypt)
+			decryptedInput = decrypt(args.decrypt, False)
+			print("Decrypted: " + decryptedInput + '\n')
+		except:
+			print("Decryption failed, please make sure the encrypted text is correct." + '\n')
 	elif args.encrypt is not None:
 		print("Encrypting: " + args.encrypt)
 		encryptedInput = encrypt(args.encrypt, False)
 		print("Encrypted: " + encryptedInput + '\n')
 	else:
-		# Program info
-		print("Encrypter " + __version__ + '\n')
 		# Encrypt
 		textToEncrypt = input("Enter text to encrypt : ")
 		print("Encrypting: " + textToEncrypt)
