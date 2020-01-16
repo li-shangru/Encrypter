@@ -59,3 +59,15 @@ def testCharactersLettersNumbers():
 		encryptedResult = ED.encrypt(randomInput, False)
 		decryptedResult = ED.decrypt(encryptedResult, False)
 		assert randomInput == decryptedResult
+
+def testErrorInput():
+	"""
+	Test 100 random generated string consist of special characters, letters and digits,
+	Of length in range 0 to x. As input to the decrypt function, which should fail.
+	"""
+	for x in range(100):
+		importlib.reload(ED)
+		mixedInput = string.ascii_letters + string.digits + string.punctuation
+		randomInput = ''.join(random.choice(mixedInput) for i in range(random.randint(0, x)))
+		with pytest.raises(SyntaxError):
+			ED.decrypt(randomInput, False)
