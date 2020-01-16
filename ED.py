@@ -12,7 +12,7 @@ __author__ = "Shangru Li"
 __copyright__ = "Copyright 2020, Shangru Li"
 __credits__ = "Shangru Li"
 __license__ = "MIT"
-__version__ = "2.5"
+__version__ = "2.6"
 __maintainer__ = "Shangru Li"
 __email__ = "max.shangru.li@gmail.com"
 __status__ = "Stable"
@@ -45,11 +45,25 @@ def main():
 		encryptedInput = encrypt(args.encrypt, False)
 		print("Encrypted: " + encryptedInput + '\n')
 	else:
-		textToEncrypt = input("Enter: ")
+		# Program info
+		print("Encrypter " + __version__ + '\n')
+		# Encrypt
+		textToEncrypt = input("Enter text to encrypt : ")
+		print("Encrypting: " + textToEncrypt)
 		encryptedText = encrypt(textToEncrypt, False)
-		print("Encrypt: " + encryptedText)
-		print("Decrypt: " + decrypt(encryptedText, False) + '\n')
-	input('Press ENTER to exit...')
+		print("Encrypted: " + encryptedText + '\n')
+		# Decrypt
+		textToDecrypt = input("Enter text to decrypt : ")
+		try:
+			decryptedText = decrypt(textToDecrypt, False)
+			print("Decrypting: " + textToDecrypt)
+			print("Decrypted: " + decryptedText + '\n')
+		except:
+			print("Decryption failed, please make sure the encrypted text is correct." + '\n')
+	userCommand = input('Enter R to run the program again, or anything else to exit: ')
+	if userCommand == 'R' or userCommand == 'r' :
+		print('\n')
+		main()
 
 def generateSeedIndicator():
 	"""
