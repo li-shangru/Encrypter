@@ -8,7 +8,9 @@ Encrypter is a script written in [Python3](https://www.python.org/). To install 
 
 The script can be executed in three different modes:
 * **Normal**: Double click the script to execute without any argument.
-  * Script will ask you to enter an input for encryption, then return the encrypted input and decrypt the encrypted input.
+  * Script will ask you to enter an input for encryption, then return the encrypted input.
+  * Then script will ask you to enter an encrypted input for decryption, and return the decrypted input if it is a correct encrypted input.
+  * After script finishes execution, enter R (or r) to re-run the program again. Or anything else to exit.
 
 * **Decrypt**: Open a terminal and execute the script with argument: `-d` followed by the string needed to be decrypted. Will decrypt the given encrypted string.
   * `./ED.py -d 'Encrypted_String'`
