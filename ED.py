@@ -12,7 +12,7 @@ __author__ = "Shangru Li"
 __copyright__ = "Copyright 2020, Shangru Li"
 __credits__ = "Shangru Li"
 __license__ = "MIT"
-__version__ = "2.7"
+__version__ = "2.8"
 __maintainer__ = "Shangru Li"
 __email__ = "max.shangru.li@gmail.com"
 __status__ = "Stable"
@@ -43,7 +43,7 @@ def main():
 			print("Decrypting: " + args.decrypt)
 			decryptedInput = decrypt(args.decrypt, False)
 			print("Decrypted: " + decryptedInput + '\n')
-		except:
+		except SyntaxError:
 			print("Decryption failed, please make sure the encrypted text is correct." + '\n')
 	elif args.encrypt is not None:
 		print("Encrypting: " + args.encrypt)
@@ -61,7 +61,7 @@ def main():
 			decryptedText = decrypt(textToDecrypt, False)
 			print("Decrypting: " + textToDecrypt)
 			print("Decrypted: " + decryptedText + '\n')
-		except:
+		except SyntaxError:
 			print("Decryption failed, please make sure the encrypted text is correct." + '\n')
 	userCommand = input('Enter R to run the program again, or anything else to exit: ')
 	if userCommand == 'R' or userCommand == 'r' :
@@ -127,58 +127,61 @@ def encrypt(textToEncrypt, isSeed):
 		return encrypt(seedIndicator + seed, True) + seedIndicator + code + seedIndicator
 
 def decrypt(textToDecrypt, isSeed):
-	# The last character is the `seedIndicator`
-	seedIndicator = textToDecrypt[len(textToDecrypt) - 1]
-	# Removing the `seedIndicator` from input
-	textToDecrypt = textToDecrypt[:-1]
-	# The `textToDecrpt` should looks like this:
-	# {seedForEncryptedSeed + seedIndicator + encryptedSeed} +
-	# {seedIndicator + encryptedInput + seedIndicator}
-	if isSeed == False:
-		# Splitting the seed and input
-		seedForEncryptedSeed, encryptedSeed, encryptedInput = textToDecrypt.split(seedIndicator)
-		# Decrpt the seed for user input
-		decryptedSeed = decrypt(seedForEncryptedSeed + seedIndicator + encryptedSeed + seedIndicator, True)
-		# Combine the decrypted seed with encrypted input for further encrypt
-		textToDecrypt = decryptedSeed + seedIndicator + encryptedInput
-	# The first three characters of seed is the `offset`
-	offset = int(textToDecrypt[0] + textToDecrypt[1])
-	# Remove the `offset` from `textToDecrpt`
-	textToDecrypt = textToDecrypt[2:len(textToDecrypt)]
-	# Split the textToDecrypt by seedIndicator to get the seed and code
-	seed, code = textToDecrypt.split(seedIndicator)
-	result = []
-	# This is to remember the ASCII code for a paticular character
-	# For example, ASCII code 102, in this list: ['1', '0', '2']
-	asciiList = []
-	# Check which seed the index is pointing at
-	check = 0
-	# The index for seed list
-	seedIndex = 0
-	for i in range(len(code)):
-		# separate the three seeds
-		seed1 = seed[seedIndex]
-		seed2 = seed[seedIndex + 1]
-		seed3 = seed[seedIndex + 2]
-		# current index points to `seed1`, increment `check` go to next character
-		if code[i] == seed1 and check == 0:
-			check = 1
-		# current index points to `seed2`, do the same
-		elif code[i] == seed2 and check == 1:
-			check = 2
-		# current index points to `seed3`, we can start decrypting
-		elif code[i] == seed3 and check == 2:
-			# each original character is the ASCII code - offset
-			result.append((chr(int(''.join(asciiList)) - offset)))
-			# clear the array after the have decrypted
-			asciiList.clear()
-			# Go to the next set of seed
-			seedIndex += 3
-			check = 0
-		else:
-			# index points to the encrypted char, store it for decrypt
-			asciiList.append(code[i])
-	return ''.join(result)
+	try:
+		# The last character is the `seedIndicator`
+		seedIndicator = textToDecrypt[len(textToDecrypt) - 1]
+		# Removing the `seedIndicator` from input
+		textToDecrypt = textToDecrypt[:-1]
+		# The `textToDecrpt` should looks like this:
+		# {seedForEncryptedSeed + seedIndicator + encryptedSeed} +
+		# {seedIndicator + encryptedInput + seedIndicator}
+		if isSeed == False:
+			# Splitting the seed and input
+			seedForEncryptedSeed, encryptedSeed, encryptedInput = textToDecrypt.split(seedIndicator)
+			# Decrpt the seed for user input
+			decryptedSeed = decrypt(seedForEncryptedSeed + seedIndicator + encryptedSeed + seedIndicator, True)
+			# Combine the decrypted seed with encrypted input for further encrypt
+			textToDecrypt = decryptedSeed + seedIndicator + encryptedInput
+		# The first three characters of seed is the `offset`
+		offset = int(textToDecrypt[0] + textToDecrypt[1])
+		# Remove the `offset` from `textToDecrpt`
+		textToDecrypt = textToDecrypt[2:len(textToDecrypt)]
+		# Split the textToDecrypt by seedIndicator to get the seed and code
+		seed, code = textToDecrypt.split(seedIndicator)
+		result = []
+		# This is to remember the ASCII code for a paticular character
+		# For example, ASCII code 102, in this list: ['1', '0', '2']
+		asciiList = []
+		# Check which seed the index is pointing at
+		check = 0
+		# The index for seed list
+		seedIndex = 0
+		for i in range(len(code)):
+			# separate the three seeds
+			seed1 = seed[seedIndex]
+			seed2 = seed[seedIndex + 1]
+			seed3 = seed[seedIndex + 2]
+			# current index points to `seed1`, increment `check` go to next character
+			if code[i] == seed1 and check == 0:
+				check = 1
+			# current index points to `seed2`, do the same
+			elif code[i] == seed2 and check == 1:
+				check = 2
+			# current index points to `seed3`, we can start decrypting
+			elif code[i] == seed3 and check == 2:
+				# each original character is the ASCII code - offset
+				result.append((chr(int(''.join(asciiList)) - offset)))
+				# clear the array after the have decrypted
+				asciiList.clear()
+				# Go to the next set of seed
+				seedIndex += 3
+				check = 0
+			else:
+				# index points to the encrypted char, store it for decrypt
+				asciiList.append(code[i])
+		return ''.join(result)
+	except:
+		raise SyntaxError("Input " + textToDecrypt + " is invalid.")
 
 if __name__ == "__main__":
 	main()
