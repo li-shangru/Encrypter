@@ -12,7 +12,7 @@ __author__ = "Shangru Li"
 __copyright__ = "Copyright 2020, Shangru Li"
 __credits__ = "Shangru Li"
 __license__ = "MIT"
-__version__ = "2.8"
+__version__ = "2.9"
 __maintainer__ = "Shangru Li"
 __email__ = "max.shangru.li@gmail.com"
 __status__ = "Stable"
@@ -51,13 +51,15 @@ def main():
 		print("Encrypted: " + encryptedInput + '\n')
 	else:
 		# Encrypt
-		textToEncrypt = input("Enter text to encrypt : ")
+		textToEncrypt = input("Enter text to encrypt: ")
 		print("Encrypting: " + textToEncrypt)
 		encryptedText = encrypt(textToEncrypt, False)
 		print("Encrypted: " + encryptedText + '\n')
 		# Decrypt
-		textToDecrypt = input("Enter text to decrypt : ")
+		textToDecrypt = input("Enter text to decrypt, or press enter to decrpt the above text: ")
 		try:
+			if not textToDecrypt :
+				textToDecrypt = encryptedText
 			decryptedText = decrypt(textToDecrypt, False)
 			print("Decrypting: " + textToDecrypt)
 			print("Decrypted: " + decryptedText + '\n')
