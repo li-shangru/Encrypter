@@ -14,7 +14,7 @@ __credits__ = "Shangru Li"
 __license__ = "MIT"
 __version__ = "2.9"
 __maintainer__ = "Shangru Li"
-__email__ = "max.shangru.li@gmail.com"
+__email__ = "maxsli@protonmail.com"
 __status__ = "Stable"
 
 ###############################___Seeds___######################################
