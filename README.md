@@ -7,6 +7,7 @@ Simple Python script to encrypt and decrypt any string.
 Encrypter is a script written in [Python3](https://www.python.org/). To install the latest version, please visit [here](https://www.python.org/downloads/).
 
 The script can be executed in three different modes:
+
 * **Normal**: Double click the script to execute without any argument.
   * Script will ask you to enter an input for encryption, then return the encrypted input.
   * Then script will ask you to enter an encrypted input for decryption, and return the decrypted input if it is a correct encrypted input.
@@ -22,7 +23,7 @@ The script can be executed in three different modes:
 
 For more examples, please visit [here](#examples).
 
-```
+```text
 usage: ED.py [-h] [-d DECRYPT] [-e ENCRYPT]
 
 optional arguments:
@@ -39,83 +40,100 @@ Given input string:
 
 * Generate a random `offset` number.
 * For every `character` in the input string:
-    * Generate a `randomLetter`, a `randomNumber` and a `randomSymbol`(Special Character).
-    * Add these random elements to a list called `seed`.
-    * Convert the `character` to ASCII code and add the `offset` to the ASCII code.
-    * Add these random elements to a list called `code`.
+  * Generate a `random_letter`, a `random_number` and a `random_symbol`(Special Character).
+  * Add these random elements to a list called `seed`.
+  * Convert the `character` to ASCII code and add the `offset` to the ASCII code.
+  * Add these random elements to a list called `code`.
 * Then encrypt the list `seed` that we just created.
 * Return combination of encrypted `seed` and input string.
 
 ## Decrypting Process
+
 Given input cypher:
 
-* Split the cypher to `encryptedSeed` and `encryptedInput`.
-* Decrypt the `encryptedSeed` to `decryptedSeed`.
-* For every `character` in the `encryptedInput`:
-    * Check if the `character` is one of the `decryptedSeed`:
-        * If so, go to the next character.
-        * Otherwise, add it to a list for decrypt.
-    * Convert the characters to be decrypted to ASCII code and minus the `offset`.
+* Split the cypher to `encrypted_seed` and `encrypted_input`.
+* Decrypt the `encrypted_seed` to `decrypted_seed`.
+* For every `character` in the `encrypted_input`:
+  * Check if the `character` is one of the `decrypted_seed`:
+    * If so, go to the next character.
+    * Otherwise, add it to a list for decrypt.
+  * Convert the characters to be decrypted to ASCII code and minus the `offset`.
 * Return the input string.
 
 ## Simple Illustration
 
 Given user input string `a`, the script returned the cypher as:
-```
+
+```text
 47a3^X5}F8-V5-p1%*102a3^104X5}145F8-103V5-90p1%*176b8+*
 ```
+
 Now, let's take a closer look:
-```
+
+```text
 47a3^X5}F8-V5-p1%*102a3^104X5}145F8-103V5-90p1% * 176b8+ *
 └───────────────────┬──────────────────────────┘│└───┬──┘│
              encrypted seed                separator │ separator
                                               encrypted input
 ```
+
 Let's split the `encrypted seed`:
-```
+
+```text
 47 a3^X5}F8-V5-p1% * 102a3^104X5}145F8-103V5-90p1% *
 │  └──────┬──────┘ │ └────────────┬──────────────┘ │
 offset  seed    separator        code           separator
 ```
+
 Notice the `code` and the `seed`:
-```
+
+```text
     a3^     X5}     F8-     V5-    p1%         seed
      │       │       │       │       │
 102 a3^ 104 X5} 145 F8- 103 V5- 90 p1%         code
  │       │       │       │      │
 102     104     145     103     90
 ```
+
 Remember the `offset` for the encrypted seed is `47`, hence we
 subtract `47` from all these numbers:
-```
+
+```text
 102 104 145 103 90
  │   │   │   │   │        Subtract 47
 55  57  98  56  43
  │   │   │   │   │        ASCII
  7   9   b   8   +
 ```
+
 We have successfully decrypted the `seed`, now its time for the `input`:
-```
+
+```text
 47a3^X5}F8-V5-p1%*102a3^104X5}145F8-103V5-90p1% * 176b8+ *
 └───────────────────┬──────────────────────────┘│└───┬──┘│
              encrypted seed                separator │ separator
              └─────┬─────┘                      encrypted input
                7 9 b 8 +
 ```
+
 Replacing `encrypted seed` as `decrypted seed`, combining with `encrypted input`:
-```
+
+```text
 79b8+  * 176b8+ *
-└─┬──┘ │ └────┴─│─────────────────┐ 
+└─┬──┘ │ └────┴─│─────────────────┐
   │ separator separator    encrypted input
 decrypted seed
 ```
+
 Breaking down:
-```
+
+```text
 79 b8+ * 176b8+ *
- │  │  │ └────┴─│──────────┐ 
+ │  │  │ └────┴─│──────────┐
  │seed separator    encrypted input
-offset      
+offset
 ```
+
 As we can see, the `encrypted input` is `176b8+` and the `seed` is `b8+`.
 
 Hence removing `b8+` from `176b8+` we get `176`.
@@ -125,7 +143,8 @@ Then minus the offset `79`: `176-79 = 97`
 Voila! `97` is the ASCII code for character `a`. We have successfully decrypted the input.
 
 ## Examples
-```
+
+```text
 Enter: a
 Encrypt: 87D6?U7}c9`y7/W1@)144D6?139U7}157c9`140y7/147W1@)191F5<)
 Decrypt: a
