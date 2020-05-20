@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-A simple script to encrypt and decrypt strings.
+A simple script to encrypt and decrypt any strings.
 """
 
 import random
@@ -12,7 +12,7 @@ __author__ = "Shangru Li"
 __copyright__ = "Copyright 2020, Shangru Li"
 __credits__ = "Shangru Li"
 __license__ = "MIT"
-__version__ = "3.0"
+__version__ = "3.1"
 __maintainer__ = "Shangru Li"
 __email__ = "maxsli@protonmail.com"
 __status__ = "Stable"
@@ -92,8 +92,8 @@ def main():
     if args.decrypt is not None:
         try:
             print("Decrypting: " + args.decrypt)
-            decryptedInput = decrypt(args.decrypt, False)
-            print("Decrypted: " + decryptedInput + "\n")
+            decrypted_input = decrypt(args.decrypt, False)
+            print("Decrypted: " + decrypted_input + "\n")
         except SyntaxError:
             print(
                 "Decryption failed, please make sure the encrypted text is correct."
@@ -101,8 +101,8 @@ def main():
             )
     elif args.encrypt is not None:
         print("Encrypting: " + args.encrypt)
-        encryptedInput = encrypt(args.encrypt, False)
-        print("Encrypted: " + encryptedInput + "\n")
+        encrypted_input = encrypt(args.encrypt, False)
+        print("Encrypted: " + encrypted_input + "\n")
     else:
         # Encrypt
         text_to_encrypt = input("Enter text to encrypt: ")
