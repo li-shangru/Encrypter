@@ -7,7 +7,6 @@ Test file for ED.py
 
 import pytest
 import random
-import math
 import string
 import importlib
 import ED
