@@ -62,7 +62,7 @@ Given input cypher:
 
 ## Simple Illustration
 
-Given user input string `a`, the script returned the cypher as:
+Given a user input string `a`, the script returned the cypher as:
 
 ```text
 47a3^X5}F8-V5-p1%*102a3^104X5}145F8-103V5-90p1%*176b8+*
