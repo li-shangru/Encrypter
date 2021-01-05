@@ -9,10 +9,10 @@ import random
 import argparse
 
 __author__ = "Shangru Li"
-__copyright__ = "Copyright 2020, Shangru Li"
+__copyright__ = "Copyright 2021, Shangru Li"
 __credits__ = "Shangru Li"
 __license__ = "MIT"
-__version__ = "3.2"
+__version__ = "3.3"
 __maintainer__ = "Shangru Li"
 __email__ = "maxsli@protonmail.com"
 __status__ = "Stable"
@@ -33,42 +33,37 @@ parser.add_argument("-e", "--encrypt", help="Encrypt an input string", type=str)
 def main():
     # Program info
     print("Encrypter " + __version__ + "\n")
+    # Parsing arguments
     args = parser.parse_args()
-    if args.decrypt is not None:
-        try:
-            print("Decrypting: " + args.decrypt)
-            decrypted_input: str = decrypt(args.decrypt)
-            print("Decrypted: " + decrypted_input + "\n")
-        except SyntaxError:
-            print(
-                "Decryption failed, please make sure the encrypted text is correct."
-                + "\n"
-            )
-    elif args.encrypt is not None:
+    # Determining modes
+    if args.encrypt is not None:
         print("Encrypting: " + args.encrypt)
-        encrypted_input: str = encrypt(args.encrypt)
-        print("Encrypted: " + encrypted_input + "\n")
+        try:
+            print("Encrypted: " + encrypt(args.encrypt) + "\n")
+        except SyntaxError as error:
+            print(error.msg + "\n")
+    elif args.decrypt is not None:
+        print("Decrypting: " + args.decrypt)
+        try:
+            print("Decrypted: " + decrypt(args.decrypt) + "\n")
+        except SyntaxError as error:
+            print(error.msg + "\n")
     else:
         # Encrypt
         text_to_encrypt: str = input("Enter text to encrypt: ")
         print("Encrypting: " + text_to_encrypt)
-        encrypted_text: str = encrypt(text_to_encrypt)
-        print("Encrypted: " + encrypted_text + "\n")
-        # Decrypt
-        text_to_decrypt: str = input(
-            "Enter text to decrypt, or press enter to decrpt the above text: "
-        )
         try:
+            encrypted_text: str = encrypt(text_to_encrypt)
+            print("Encrypted: " + encrypted_text + "\n")
+            # Decrypt
+            text_to_decrypt: str = input("Enter text to decrypt, or press enter to decrpt the above text: ")
             if not text_to_decrypt:
                 text_to_decrypt = encrypted_text
             decrypted_text: str = decrypt(text_to_decrypt)
             print("Decrypting: " + text_to_decrypt)
             print("Decrypted: " + decrypted_text + "\n")
-        except SyntaxError:
-            print(
-                "Decryption failed, please make sure the encrypted text is correct."
-                + "\n"
-            )
+        except SyntaxError as error:
+            print(error.msg + "\n")
     user_command: str = input("Enter R to run the program again, or anything else to exit: ")
     if user_command == "R" or user_command == "r":
         print("\n")
@@ -98,6 +93,9 @@ def encrypt(text_to_encrypt: str, is_seed: bool = False) -> str:
     """
     Encrypt the given string `text_to_encrypt` and return the result.
     """
+    # Pre-condition: Input `text_to_encrypt` should not be empty
+    if text_to_encrypt is None or text_to_encrypt == '':
+        raise SyntaxError("Input cannot be empty.")
     if is_seed == False:
         # Pick a random seedIndicator
         seed_indicator: str = generate_seed_indicator()
@@ -205,7 +203,7 @@ def decrypt(text_to_decrypt: str, is_seed: bool = False) -> str:
                 ascii_list.append(code[i])
         return "".join(result)
     except:
-        raise SyntaxError("Input " + text_to_decrypt + " is invalid.")
+        raise SyntaxError("Decryption failed, please make sure the encrypted text is correct.")
 
 
 if __name__ == "__main__":

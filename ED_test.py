@@ -26,13 +26,13 @@ def test_number():
 
 def test_string():
     """
-    Test 16 random generated letters, length of each letter is in range (0, x^4).
+    Test 16 random generated letters, length of each letter is in range (1, x^4).
     """
-    for x in range(16):
+    for x in range(2, 16):
         importlib.reload(ED)
         letters: str = string.ascii_letters
         random_letters: str = "".join(
-            random.choice(letters) for i in range(random.randint(0, x ** 4))
+            random.choice(letters) for i in range(random.randint(1, x ** 4))
         )
         encrypted_result: str = ED.encrypt(random_letters)
         decrypted_result: str = ED.decrypt(encrypted_result)
@@ -41,13 +41,13 @@ def test_string():
 
 def test_character():
     """
-    Test 16 random generated special characters, length of each character is in range (0, x^4).
+    Test 16 random generated special characters, length of each character is in range (1, x^4).
     """
-    for x in range(16):
+    for x in range(2, 16):
         importlib.reload(ED)
         characters: str = string.punctuation
         random_character: str = "".join(
-            random.choice(characters) for i in range(random.randint(0, x ** 4))
+            random.choice(characters) for i in range(random.randint(1, x ** 4))
         )
         encrypted_result: str = ED.encrypt(random_character)
         decrypted_result: str = ED.decrypt(encrypted_result)
@@ -57,13 +57,13 @@ def test_character():
 def test_characters_letters_numbers():
     """
     Test 16 random generated string consist of special characters, letters and digits,
-    Of length in range 0 to x^4.
+    Of length in range 1 to x^4.
     """
-    for x in range(16):
+    for x in range(2, 16):
         importlib.reload(ED)
         mixed_input: str = string.ascii_letters + string.digits + string.punctuation
         random_input: str = "".join(
-            random.choice(mixed_input) for i in range(random.randint(0, x ** 4))
+            random.choice(mixed_input) for i in range(random.randint(1, x ** 4))
         )
         encrypted_result: str = ED.encrypt(random_input)
         decrypted_result: str = ED.decrypt(encrypted_result)
@@ -73,13 +73,21 @@ def test_characters_letters_numbers():
 def test_error_input():
     """
     Test 100 random generated string consist of special characters, letters and digits,
-    Of length in range 0 to x. As input to the decrypt function, which should fail.
+    Of length in range 1 to x. As input to the decrypt function, which should fail.
     """
-    for x in range(100):
+    for x in range(2, 100):
         importlib.reload(ED)
         mixed_input: str = string.ascii_letters + string.digits + string.punctuation
         random_input: str = "".join(
-            random.choice(mixed_input) for i in range(random.randint(0, x))
+            random.choice(mixed_input) for i in range(random.randint(1, x))
         )
         with pytest.raises(SyntaxError):
             ED.decrypt(random_input)
+
+
+def test_empty_input():
+    """
+    Test empty input on encrypt function, which return an error message.
+    """
+    with pytest.raises(SyntaxError):
+        ED.encrypt('')
