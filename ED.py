@@ -12,7 +12,7 @@ __author__ = "Shangru Li"
 __copyright__ = "Copyright 2021, Shangru Li"
 __credits__ = "Shangru Li"
 __license__ = "MIT"
-__version__ = "3.3"
+__version__ = "3.4"
 __maintainer__ = "Shangru Li"
 __email__ = "maxsli@protonmail.com"
 __status__ = "Stable"
@@ -70,7 +70,7 @@ def main():
         main()
 
 
-def generate_seed_indicator() -> str:
+def generate_seed_indicator(seed_symbol: list) -> str:
     """
     Generate a special character to separate the seed and code from the `seed_symbol`.
     """
@@ -89,7 +89,7 @@ def get_random_case_seedletter() -> str:
         return str.capitalize(seed_letter[random.randint(0, len(seed_letter) - 1)])
 
 
-def encrypt(text_to_encrypt: str, is_seed: bool = False) -> str:
+def encrypt(text_to_encrypt: str, is_seed: bool = False, seed_symbol: list = seed_symbol.copy()) -> str:
     """
     Encrypt the given string `text_to_encrypt` and return the result.
     """
@@ -98,7 +98,7 @@ def encrypt(text_to_encrypt: str, is_seed: bool = False) -> str:
         raise SyntaxError("Input cannot be empty.")
     if is_seed == False:
         # Pick a random seedIndicator
-        seed_indicator: str = generate_seed_indicator()
+        seed_indicator: str = generate_seed_indicator(seed_symbol)
     else:
         seed_indicator = text_to_encrypt[0]
         # Remove the `seedIndicator`
@@ -128,7 +128,7 @@ def encrypt(text_to_encrypt: str, is_seed: bool = False) -> str:
     else:
         # Else we encode the seed
         return (
-            encrypt(seed_indicator + seed, True)
+            encrypt(seed_indicator + seed, True, seed_symbol)
             + seed_indicator
             + code
             + seed_indicator
