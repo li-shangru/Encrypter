@@ -89,7 +89,7 @@ def get_random_case_seedletter() -> str:
         return str.capitalize(seed_letter[random.randint(0, len(seed_letter) - 1)])
 
 
-def encrypt(text_to_encrypt: str, is_seed: bool = False, seed_symbol: list = seed_symbol.copy()) -> str:
+def encrypt(text_to_encrypt: str, is_seed: bool = False, seed_symbol_copy: list = []) -> str:
     """
     Encrypt the given string `text_to_encrypt` and return the result.
     """
@@ -97,8 +97,10 @@ def encrypt(text_to_encrypt: str, is_seed: bool = False, seed_symbol: list = see
     if text_to_encrypt is None or text_to_encrypt == '':
         raise SyntaxError("Input cannot be empty.")
     if is_seed == False:
+        # Make a copy of the current `seed_symbol`
+        seed_symbol_copy = seed_symbol.copy()
         # Pick a random seedIndicator
-        seed_indicator: str = generate_seed_indicator(seed_symbol)
+        seed_indicator: str = generate_seed_indicator(seed_symbol_copy)
     else:
         seed_indicator = text_to_encrypt[0]
         # Remove the `seedIndicator`
@@ -114,7 +116,7 @@ def encrypt(text_to_encrypt: str, is_seed: bool = False, seed_symbol: list = see
         # Randomly pick a number from 'seed_number'
         random_number: str = seed_number[random.randint(0, len(seed_number) - 1)]
         # Randomly pick a symbol from 'seed_symbol'
-        random_symbol: str = seed_symbol[random.randint(0, len(seed_symbol) - 1)]
+        random_symbol: str = seed_symbol_copy[random.randint(0, len(seed_symbol_copy) - 1)]
         # Appending to the seed
         seed_combine: str = random_letter + random_number + random_symbol
         # Appending to the seed
@@ -128,7 +130,7 @@ def encrypt(text_to_encrypt: str, is_seed: bool = False, seed_symbol: list = see
     else:
         # Else we encode the seed
         return (
-            encrypt(seed_indicator + seed, True, seed_symbol)
+            encrypt(seed_indicator + seed, True, seed_symbol_copy)
             + seed_indicator
             + code
             + seed_indicator
