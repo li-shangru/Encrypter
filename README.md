@@ -3,25 +3,22 @@
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 [![Encrypter testing](https://github.com/MaxsLi/Encrypter/actions/workflows/encrypter_testing.yml/badge.svg)](https://github.com/MaxsLi/Encrypter/actions/workflows/encrypter_testing.yml)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/maxsli/Encrypter?style=plastic)
-
-Simple Python script to encrypt and decrypt any string.
+![GitHub](https://img.shields.io/github/license/maxsli/Encrypter)
 
 ## Usage
 
-Encrypter is a script written in [Python3](https://www.python.org/). To install the latest version, please visit [here](https://www.python.org/downloads/).
-
 The script can be executed in three different modes:
 
-* **Normal**: Double click the script to execute without any argument.
-  * Script will ask you to enter an input for encryption, then return the encrypted input.
-  * Then script will ask you to enter an encrypted input for decryption, and return the decrypted input if it is a correct encrypted input.
-  * After script finishes execution, enter R (or r) to re-run the program again. Or anything else to exit.
+* **Normal**: Execute without any argument.
+  * Enter an input for encryption, and the script will return the encrypted input.
+  * Enter an encrypted input for decryption, and return the result.
+  * Enter `R` (or `r`) to re-run the program, or anything else to exit.
 
-* **Decrypt**: Open a terminal and execute the script with argument: `-d` followed by the string needed to be decrypted. Will decrypt the given encrypted string.
+* **Decrypt**: Execute with argument: `-d` followed by the string needed to be decrypted. Will decrypt the given encrypted string.
   * `./ED.py -d 'Encrypted_String'`
   * Noted the single quote characters surrounding the encrypted input, this is necessary because `Encrypted_String` contains special characters.
 
-* **Encrypt**: Open a terminal and execute the script with argument: `-e` followed by the string needed to be encrypted. Will encrypt the given input string.
+* **Encrypt**: Execute with argument: `-e` followed by the string needed to be encrypted. Will encrypt the given input string.
   * `./ED.py -e 'Input_String'`
   * Noted the single quote characters surrounding the input string.
 
