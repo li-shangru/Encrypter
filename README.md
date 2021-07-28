@@ -25,7 +25,7 @@ The script can be executed in three different modes:
 
 For more examples, please visit [here](#examples).
 
-This script is also avaliable as a web application: [encrypter-web](encrypter-web.netlify.app/).
+This script is also avaliable as a web application: [encrypter-web](https://encrypter-web.netlify.app/).
 
 ```text
 usage: ED.py [-h] [-d DECRYPT] [-e ENCRYPT]
