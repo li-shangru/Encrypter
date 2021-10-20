@@ -1,10 +1,10 @@
 # Encrypter
 
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
-[![Encrypter testing](https://github.com/MaxsLi/Encrypter/actions/workflows/encrypter_testing.yml/badge.svg)](https://github.com/MaxsLi/Encrypter/actions/workflows/encrypter_testing.yml)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/maxsli/Encrypter?style=plastic)
-![GitHub all releases](https://img.shields.io/github/downloads/MaxsLi/Encrypter/total)
-![GitHub](https://img.shields.io/github/license/maxsli/Encrypter)
+[![Encrypter testing](https://github.com/li-shangru/Encrypter/actions/workflows/encrypter_testing.yml/badge.svg)](https://github.com/li-shangru/Encrypter/actions/workflows/encrypter_testing.yml)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/li-shangru/Encrypter?style=plastic)
+![GitHub all releases](https://img.shields.io/github/downloads/li-shangru/Encrypter/total)
+![GitHub](https://img.shields.io/github/license/li-shangru/Encrypter)
 
 ## Usage
 
